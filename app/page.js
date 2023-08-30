@@ -1,18 +1,10 @@
-'use client'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react';
 
 function Home() {
   const startTime = useRef(0);
   const intervalRef = useRef(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [laps, setLaps] = useState([]);
-
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60000);
-    const seconds = Math.floor((time / 1000) % 60);
-    const milliseconds = (time % 1000).toFixed(3);
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds}`;
-  };
 
   const start = () => {
     if (!intervalRef.current) {
@@ -45,7 +37,7 @@ function Home() {
   return (
     <div id="main">
       <section>
-        <h1 className='seconds-elapsed'>Stopwatch Time: {formatTime(currentTime)}</h1>
+        <h1 className='seconds-elapsed'>Stopwatch Time: {currentTime / 1000} seconds</h1>
         <section className='buttons'>
           <button className="start-btn" onClick={start}>START</button>
           <button className="stop-btn" onClick={stop}>STOP</button>
@@ -57,13 +49,12 @@ function Home() {
         <h2>Laps</h2>
         <section className='laps'>
           {laps.map((lapTime, index) => (
-            <p key={index}>{formatTime(lapTime)}</p>
+            <p key={index}>{(lapTime / 1000).toFixed(2)} seconds</p>
           ))}
         </section>
       </section>
     </div>
-  )
+  );
 }
 
-export default Home
-
+export default Home;
